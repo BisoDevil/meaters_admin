@@ -26,14 +26,6 @@ class _OrderDetailState extends State<OrderDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-              size: 20,
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            }),
         title: Text("Order Number #${order.number}"),
       ),
       body: SingleChildScrollView(

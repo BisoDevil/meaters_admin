@@ -19,7 +19,8 @@ class _OrderMainScreenState extends State<OrderMainScreen> {
         : ListView.builder(
             itemCount: provider.myOrders.length,
             itemBuilder: (BuildContext context, int index) => OrderItem(
-                  order: provider.myOrders[index],
-                ));
+              order: provider.myOrders[index],
+            ),
+          );
   }
 }

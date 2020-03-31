@@ -48,11 +48,11 @@ class _SingleChatScreenState extends State<SingleChatScreen> {
                               : 0),
                       padding: BubbleEdges.all(9),
                       alignment: item.sender == "admin"
-                          ? Alignment.topRight
-                          : Alignment.topLeft,
+                          ? Alignment.topLeft
+                          : Alignment.topRight,
                       nip: item.sender != "admin"
-                          ? BubbleNip.rightBottom
-                          : BubbleNip.leftBottom,
+                          ? BubbleNip.leftBottom
+                          : BubbleNip.rightBottom,
                       nipRadius: 4,
                       nipWidth: 30,
                       nipHeight: 10,
