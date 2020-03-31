@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:meaters_admin/model/Order.dart';
+import 'package:meaters_admin/providers/OrderProvider.dart';
+import 'package:provider/provider.dart';
 
 class OrderDetail extends StatefulWidget {
   final Order order;
-  final VoidCallback onRefresh;
 
-  OrderDetail({this.order, this.onRefresh});
+  OrderDetail({this.order});
 
   @override
   _OrderDetailState createState() => _OrderDetailState();
 }
 
 class _OrderDetailState extends State<OrderDetail> {
-  String tracking;
   Order order;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -24,6 +25,7 @@ class _OrderDetailState extends State<OrderDetail> {
 
   @override
   Widget build(BuildContext context) {
+    OrderProvider provider = Provider.of<OrderProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text("Order Number #${order.number}"),
@@ -32,6 +34,48 @@ class _OrderDetailState extends State<OrderDetail> {
         padding: EdgeInsets.symmetric(horizontal: 15.0),
         child: Column(
           children: <Widget>[
+            SizedBox(
+              height: 25,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  "Client",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "${order.shipping.firstName} ${order.shipping.lastName}",
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.w600),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  "Phone number",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "${order.shipping.phone}",
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.w600),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Divider(
+              thickness: 3,
+              indent: 20,
+              endIndent: 20,
+            ),
             for (var item in order.lineItems)
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 15),
@@ -155,6 +199,56 @@ class _OrderDetailState extends State<OrderDetail> {
             SizedBox(
               height: 20,
             ),
+            if (order.status == "pending")
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: FlatButton.icon(
+                        onPressed: () async {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          isLoading =
+                              !await provider.completeOrder(order: order);
+                        },
+                        color: Colors.green,
+                        icon: Icon(
+                          Icons.check,
+                          color: Colors.white,
+                        ),
+                        label: Text(
+                          "Complete",
+                          style: TextStyle(color: Colors.white),
+                        )),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Expanded(
+                    child: FlatButton.icon(
+                        onPressed: () async {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          isLoading = !await provider.cancelOrder(order: order);
+                        },
+                        color: Colors.red,
+                        icon: Icon(
+                          Icons.check,
+                          color: Colors.white,
+                        ),
+                        label: Text(
+                          "Cancel",
+                          style: TextStyle(color: Colors.white),
+                        )),
+                  )
+                ],
+              ),
+            if (isLoading)
+              SizedBox(
+                height: 70,
+                child: Center(child: CircularProgressIndicator()),
+              )
           ],
         ),
       ),

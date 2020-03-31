@@ -30,4 +30,29 @@ class OrderProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  Future<bool> completeOrder({Order order}) async {
+    return await _updateOrder(order: order, status: "completed");
+  }
+
+  Future<bool> cancelOrder({Order order}) async {
+    return await _updateOrder(order: order, status: "cancelled");
+  }
+
+  Future<bool> _updateOrder({Order order, String status}) async {
+    order.status = status;
+    var res = await http.put(
+        "https://meatersegy.com/wp-json/wc/v3/orders/${order.id}",
+        body: convert.jsonEncode(order.toMap()),
+        headers: {
+          "Authorization":
+              "Basic Y2tfYWNjZTRhY2YzYjBhODAxMjM0ZTQyODQxNWI5NTI1NTFmZTk5NzkzMjpjc18zNGM1ZjI1ZWUzYTdhOTNmZTcxOGNmZTUxNjhlODBmMTlhMTgwM2Zk"
+        });
+    print(res.body);
+    if (res.statusCode == 200) {
+      notifyListeners();
+      return true;
+    }
+    return false;
+  }
 }

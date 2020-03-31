@@ -48,7 +48,7 @@ class Order {
   List<MetaDatum> metaData;
   List<LineItem> lineItems;
   List<dynamic> taxLines;
-  List<dynamic> shippingLines;
+  List<ShippingLine> shippingLines;
   List<dynamic> feeLines;
   List<dynamic> couponLines;
   List<dynamic> refunds;
@@ -131,17 +131,26 @@ class Order {
         paymentMethod: json["payment_method"],
         paymentMethodTitle: json["payment_method_title"],
         transactionId: json["transaction_id"],
-        datePaid: DateTime.parse(json["date_paid"]),
-        datePaidGmt: DateTime.parse(json["date_paid_gmt"]),
-        dateCompleted: DateTime.parse(json["date_completed"]),
-        dateCompletedGmt: DateTime.parse(json["date_completed_gmt"]),
+        datePaid: json["date_paid"] == null
+            ? null
+            : DateTime.parse(json["date_paid"]),
+        datePaidGmt: json["date_paid_gmt"] == null
+            ? null
+            : DateTime.parse(json["date_paid_gmt"]),
+        dateCompleted: json["date_completed"] == null
+            ? null
+            : DateTime.parse(json["date_completed"]),
+        dateCompletedGmt: json["date_completed_gmt"] == null
+            ? null
+            : DateTime.parse(json["date_completed_gmt"]),
         cartHash: json["cart_hash"],
         metaData: List<MetaDatum>.from(
             json["meta_data"].map((x) => MetaDatum.fromMap(x))),
         lineItems: List<LineItem>.from(
             json["line_items"].map((x) => LineItem.fromMap(x))),
         taxLines: List<dynamic>.from(json["tax_lines"].map((x) => x)),
-        shippingLines: List<dynamic>.from(json["shipping_lines"].map((x) => x)),
+        shippingLines: List<ShippingLine>.from(
+            json["shipping_lines"].map((x) => ShippingLine.fromMap(x))),
         feeLines: List<dynamic>.from(json["fee_lines"].map((x) => x)),
         couponLines: List<dynamic>.from(json["coupon_lines"].map((x) => x)),
         refunds: List<dynamic>.from(json["refunds"].map((x) => x)),
@@ -169,31 +178,36 @@ class Order {
         "cart_tax": cartTax,
         "total": total,
         "total_tax": totalTax,
-        "prices_include_tax": pricesIncludeTax,
-        "customer_id": customerId,
-        "customer_ip_address": customerIpAddress,
-        "customer_user_agent": customerUserAgent,
-        "customer_note": customerNote,
-        "billing": billing.toMap(),
-        "shipping": shipping.toMap(),
-        "payment_method": paymentMethod,
-        "payment_method_title": paymentMethodTitle,
-        "transaction_id": transactionId,
-        "date_paid": datePaid.toIso8601String(),
-        "date_paid_gmt": datePaidGmt.toIso8601String(),
-        "date_completed": dateCompleted.toIso8601String(),
-        "date_completed_gmt": dateCompletedGmt.toIso8601String(),
-        "cart_hash": cartHash,
-        "meta_data": List<dynamic>.from(metaData.map((x) => x.toMap())),
-        "line_items": List<dynamic>.from(lineItems.map((x) => x.toMap())),
-        "tax_lines": List<dynamic>.from(taxLines.map((x) => x)),
-        "shipping_lines": List<dynamic>.from(shippingLines.map((x) => x)),
-        "fee_lines": List<dynamic>.from(feeLines.map((x) => x)),
-        "coupon_lines": List<dynamic>.from(couponLines.map((x) => x)),
-        "refunds": List<dynamic>.from(refunds.map((x) => x)),
-        "currency_symbol": currencySymbol,
-        "_links": links.toMap(),
-      };
+    "prices_include_tax": pricesIncludeTax,
+    "customer_id": customerId,
+    "customer_ip_address": customerIpAddress,
+    "customer_user_agent": customerUserAgent,
+    "customer_note": customerNote,
+    "billing": billing.toMap(),
+    "shipping": shipping.toMap(),
+    "payment_method": paymentMethod,
+    "payment_method_title": paymentMethodTitle,
+    "transaction_id": transactionId,
+    "date_paid": datePaid == null ? null : datePaid.toIso8601String(),
+    "date_paid_gmt":
+    datePaidGmt == null ? null : datePaidGmt.toIso8601String(),
+    "date_completed":
+    dateCompleted == null ? null : dateCompleted.toIso8601String(),
+    "date_completed_gmt": dateCompletedGmt == null
+        ? null
+        : dateCompletedGmt.toIso8601String(),
+    "cart_hash": cartHash,
+    "meta_data": List<dynamic>.from(metaData.map((x) => x.toMap())),
+    "line_items": List<dynamic>.from(lineItems.map((x) => x.toMap())),
+    "tax_lines": List<dynamic>.from(taxLines.map((x) => x)),
+    "shipping_lines":
+    List<dynamic>.from(shippingLines.map((x) => x.toMap())),
+    "fee_lines": List<dynamic>.from(feeLines.map((x) => x)),
+    "coupon_lines": List<dynamic>.from(couponLines.map((x) => x)),
+    "refunds": List<dynamic>.from(refunds.map((x) => x)),
+    "currency_symbol": currencySymbol,
+    "_links": links.toMap(),
+  };
 }
 
 class Ing {
@@ -323,22 +337,33 @@ class LineItem {
 class Links {
   List<Collection> self;
   List<Collection> collection;
+  List<Collection> customer;
 
   Links({
     this.self,
     this.collection,
+    this.customer,
   });
 
-  factory Links.fromMap(Map<String, dynamic> json) => Links(
+  factory Links.fromMap(Map<String, dynamic> json) =>
+      Links(
         self: List<Collection>.from(
             json["self"].map((x) => Collection.fromMap(x))),
         collection: List<Collection>.from(
             json["collection"].map((x) => Collection.fromMap(x))),
+        customer: json["customer"] == null
+            ? null
+            : List<Collection>.from(
+            json["customer"].map((x) => Collection.fromMap(x))),
       );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMap() =>
+      {
         "self": List<dynamic>.from(self.map((x) => x.toMap())),
         "collection": List<dynamic>.from(collection.map((x) => x.toMap())),
+        "customer": customer == null
+            ? null
+            : List<dynamic>.from(customer.map((x) => x.toMap())),
       };
 }
 
@@ -372,12 +397,59 @@ class MetaDatum {
   factory MetaDatum.fromMap(Map<String, dynamic> json) => MetaDatum(
         id: json["id"],
         key: json["key"],
-        value: json["value"],
-      );
+    value: json["value"],
+  );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMap() =>
+      {
         "id": id,
         "key": key,
         "value": value,
+      };
+}
+
+class ShippingLine {
+  int id;
+  String methodTitle;
+  String methodId;
+  String instanceId;
+  String total;
+  String totalTax;
+  List<dynamic> taxes;
+  List<dynamic> metaData;
+
+  ShippingLine({
+    this.id,
+    this.methodTitle,
+    this.methodId,
+    this.instanceId,
+    this.total,
+    this.totalTax,
+    this.taxes,
+    this.metaData,
+  });
+
+  factory ShippingLine.fromMap(Map<String, dynamic> json) =>
+      ShippingLine(
+        id: json["id"],
+        methodTitle: json["method_title"],
+        methodId: json["method_id"],
+        instanceId: json["instance_id"],
+        total: json["total"],
+        totalTax: json["total_tax"],
+        taxes: List<dynamic>.from(json["taxes"].map((x) => x)),
+        metaData: List<dynamic>.from(json["meta_data"].map((x) => x)),
+      );
+
+  Map<String, dynamic> toMap() =>
+      {
+        "id": id,
+        "method_title": methodTitle,
+        "method_id": methodId,
+        "instance_id": instanceId,
+        "total": total,
+        "total_tax": totalTax,
+        "taxes": List<dynamic>.from(taxes.map((x) => x)),
+        "meta_data": List<dynamic>.from(metaData.map((x) => x)),
       };
 }

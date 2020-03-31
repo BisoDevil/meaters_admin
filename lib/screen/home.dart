@@ -15,10 +15,16 @@ class HomeScreen extends StatelessWidget {
           bottom: TabBar(
             tabs: <Widget>[
               Tab(
-                text: "Chat",
+                child: Text(
+                  "Chat",
+                  style: TextStyle(fontSize: 17),
+                ),
               ),
               Tab(
-                text: "Orders",
+                child: Text(
+                  "Order",
+                  style: TextStyle(fontSize: 17),
+                ),
               ),
             ],
           ),

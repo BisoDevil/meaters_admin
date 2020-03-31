@@ -66,6 +66,7 @@ class ChatProvider extends ChangeNotifier {
     messages[data.key] = userMessages;
 
     messages = LinkedHashMap.fromEntries(messages.entries.toList().reversed);
+
     notifyListeners();
   }
 

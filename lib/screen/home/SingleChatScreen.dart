@@ -50,12 +50,6 @@ class _SingleChatScreenState extends State<SingleChatScreen> {
                       alignment: item.sender == "admin"
                           ? Alignment.topLeft
                           : Alignment.topRight,
-                      nip: item.sender != "admin"
-                          ? BubbleNip.leftBottom
-                          : BubbleNip.rightBottom,
-                      nipRadius: 4,
-                      nipWidth: 30,
-                      nipHeight: 10,
                       radius: Radius.circular(20.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,

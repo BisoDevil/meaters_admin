@@ -5,9 +5,8 @@ import 'package:meaters_admin/screen/order/order_details.dart';
 
 class OrderItem extends StatelessWidget {
   final Order order;
-  final VoidCallback onRefresh;
 
-  OrderItem({this.order, this.onRefresh});
+  OrderItem({this.order});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +17,6 @@ class OrderItem extends StatelessWidget {
           MaterialPageRoute(
               builder: (context) => OrderDetail(
                     order: order,
-                    onRefresh: onRefresh,
                   )),
         );
       },
