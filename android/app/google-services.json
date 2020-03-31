@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "978795736687",
+    "firebase_url": "https://meaters-11c47.firebaseio.com",
+    "project_id": "meaters-11c47",
+    "storage_bucket": "meaters-11c47.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:978795736687:android:ce099e8bfcb64cbeab279a",
+        "android_client_info": {
+          "package_name": "com.innovationcodes.meaters_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "978795736687-llqjqe2t4kun7pfgift4aimf5et4kask.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjtae-IHrawSM8UrS22OKFo5_ttoTsy_0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "978795736687-llqjqe2t4kun7pfgift4aimf5et4kask.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "978795736687-ibdf7ljkn2s328e4ttfl2jm43f4sdbt3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.innovationcodes.meatersAdmin"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:978795736687:android:d81d9948628e84e3ab279a",
+        "android_client_info": {
+          "package_name": "com.inspireui.fluxstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "978795736687-llqjqe2t4kun7pfgift4aimf5et4kask.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjtae-IHrawSM8UrS22OKFo5_ttoTsy_0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "978795736687-llqjqe2t4kun7pfgift4aimf5et4kask.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "978795736687-ibdf7ljkn2s328e4ttfl2jm43f4sdbt3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.innovationcodes.meatersAdmin"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
