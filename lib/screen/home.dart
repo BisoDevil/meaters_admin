@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meaters_admin/screen/order/OrderMain.dart';
 
 import 'home/ChatMainScreen.dart';
 
@@ -15,17 +16,15 @@ class HomeScreen extends StatelessWidget {
             tabs: <Widget>[
               Tab(
                 text: "Chat",
-                icon: Icon(Icons.chat),
               ),
               Tab(
-                icon: Icon(Icons.shopping_basket),
                 text: "Orders",
               ),
             ],
           ),
         ),
         body: TabBarView(
-          children: <Widget>[ChatMainScreen(), Text("tab")],
+          children: <Widget>[ChatMainScreen(), OrderMainScreen()],
         ),
       ),
     );

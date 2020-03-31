@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meaters_admin/providers/ChatProvider.dart';
+import 'package:meaters_admin/providers/OrderProvider.dart';
 import 'package:meaters_admin/screen/home.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +13,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ChatProvider()),
+        ChangeNotifierProvider(create: (_) => OrderProvider()),
       ],
       child: MaterialApp(
         title: 'Meaters',

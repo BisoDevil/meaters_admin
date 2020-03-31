@@ -18,12 +18,6 @@ class _SingleChatScreenState extends State<SingleChatScreen> {
   TextEditingController _messageController = TextEditingController();
 
   @override
-  void dispose() {
-    super.dispose();
-    Provider.of<ChatProvider>(context, listen: false).removeUserRef();
-  }
-
-  @override
   Widget build(BuildContext context) {
     var provider = Provider.of<ChatProvider>(context);
     return Scaffold(
