@@ -345,8 +345,7 @@ class Links {
     this.customer,
   });
 
-  factory Links.fromMap(Map<String, dynamic> json) =>
-      Links(
+  factory Links.fromMap(Map<String, dynamic> json) => Links(
         self: List<Collection>.from(
             json["self"].map((x) => Collection.fromMap(x))),
         collection: List<Collection>.from(
@@ -354,7 +353,7 @@ class Links {
         customer: json["customer"] == null
             ? null
             : List<Collection>.from(
-            json["customer"].map((x) => Collection.fromMap(x))),
+                json["customer"].map((x) => Collection.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() =>

@@ -1,5 +1,6 @@
 import 'dart:convert' as convert;
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:meaters_admin/model/Order.dart';
@@ -9,6 +10,15 @@ class OrderProvider extends ChangeNotifier {
 
   OrderProvider() {
     getOrders();
+    initFirebase();
+  }
+
+  void initFirebase() {
+    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+    _firebaseMessaging.requestNotificationPermissions();
+    _firebaseMessaging.configure();
+    _firebaseMessaging.subscribeToTopic("new_order");
+    print("firbase started");
   }
 
   void getOrders() async {
