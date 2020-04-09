@@ -16,13 +16,13 @@ class HomeScreen extends StatelessWidget {
             tabs: <Widget>[
               Tab(
                 child: Text(
-                  "Chat",
+                  "Order",
                   style: TextStyle(fontSize: 17),
                 ),
               ),
               Tab(
                 child: Text(
-                  "Order",
+                  "Chat",
                   style: TextStyle(fontSize: 17),
                 ),
               ),

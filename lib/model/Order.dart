@@ -356,8 +356,7 @@ class Links {
                 json["customer"].map((x) => Collection.fromMap(x))),
       );
 
-  Map<String, dynamic> toMap() =>
-      {
+  Map<String, dynamic> toMap() => {
         "self": List<dynamic>.from(self.map((x) => x.toMap())),
         "collection": List<dynamic>.from(collection.map((x) => x.toMap())),
         "customer": customer == null
